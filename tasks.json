@@ -1,0 +1,38 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run CWD tests",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}",
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "windows":{
+                "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\coverage.ps1",
+            },
+            "linux":{
+                "command": "bash ${workspaceFolder}/.vscode/coverage.sh",
+            },
+        },
+        {
+            "label": "Build Appx",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\build-appx.ps1",
+        }
+    ]
+}
