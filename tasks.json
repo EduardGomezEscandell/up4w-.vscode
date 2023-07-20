@@ -12,12 +12,11 @@
             "problemMatcher": [],
             "group": {
                 "kind": "build",
-                "isDefault": true
             },
-            "windows":{
+            "windows": {
                 "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\coverage.ps1",
             },
-            "linux":{
+            "linux": {
                 "command": "bash ${workspaceFolder}/.vscode/coverage.sh",
             },
         },
@@ -27,12 +26,26 @@
             "options": {
                 "cwd": "${workspaceFolder}",
             },
-            "problemMatcher": [],
             "group": {
                 "kind": "build",
-                "isDefault": true
             },
-            "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\build-appx.ps1",
+            "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-appx.ps1",
+        },
+        {
+            "label": "Build Deb",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+            },
+            "group": {
+                "kind": "build",
+            },
+            "windows": {
+                "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-deb.ps1",
+            },
+            "linux": {
+                "command": "bash ${workspaceFolder}/tools/build/build-deb.sh",
+            }
         }
     ]
 }
