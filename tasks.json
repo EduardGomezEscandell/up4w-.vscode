@@ -7,45 +7,45 @@
             "label": "Run CWD tests",
             "type": "shell",
             "options": {
-                "cwd": "${fileDirname}",
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [],
             "group": {
-                "kind": "build",
+                "kind": "build"
             },
             "windows": {
-                "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\coverage.ps1",
+                "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\coverage.ps1"
             },
             "linux": {
-                "command": "bash ${workspaceFolder}/.vscode/coverage.sh",
-            },
+                "command": "bash ${workspaceFolder}/.vscode/coverage.sh"
+            }
         },
         {
             "label": "Build Appx",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}",
+                "cwd": "${workspaceFolder}"
             },
             "group": {
-                "kind": "build",
+                "kind": "build"
             },
-            "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-appx.ps1",
+            "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-appx.ps1"
         },
         {
             "label": "Build Deb",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}",
+                "cwd": "${workspaceFolder}"
             },
             "group": {
-                "kind": "build",
+                "kind": "build"
             },
             "windows": {
-                "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-deb.ps1",
+                "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-deb.ps1"
             },
             "linux": {
-                "command": "bash ${workspaceFolder}/tools/build/build-deb.sh",
+                "command": "bash ${workspaceFolder}/tools/build/build-deb.sh"
             }
-        }
+        },
     ]
 }
