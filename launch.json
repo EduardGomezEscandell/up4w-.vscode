@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "test",
             "program": "${fileDirname}",
-            "args": ["-tags=gowslmock"]
+            "buildFlags": "gowslmock",
         }
     ],
 }
