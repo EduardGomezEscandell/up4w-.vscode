@@ -29,7 +29,7 @@
             "group": {
                 "kind": "build"
             },
-            "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-appx.ps1"
+            "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-appx.ps1 -Mode ${input:appx-build-type}"
         },
         {
             "label": "Build Deb",
@@ -47,5 +47,16 @@
                 "command": "bash ${workspaceFolder}/tools/build/build-deb.sh"
             }
         },
+    ],
+    "inputs": [
+        {
+            "description": "What type of build do you want?",
+            "id": "appx-build-type",
+            "type": "pickString",
+            "options": [
+                "prodution",
+                "end_to_end"
+            ]
+        }
     ]
 }
