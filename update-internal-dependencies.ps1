@@ -1,26 +1,25 @@
-$commit = "$(git rev-parse HEAD~1)"
+$commit = "5b9d0e7eff848477bfa51647cbee727cc80ca48f"
 $root = "C:\Users\edu19\Work\ubuntu-pro-for-windows"
 $repo = "github.com/canonical/ubuntu-pro-for-windows"
 
-$modules = @()
-Get-ChildItem -Path "${root}" -Recurse -Filter go.mod | ForEach-Object {
-    $modules += $(Split-Path -Parent $_)
+Set-Location $root
+
+$modulePaths = @()
+Get-ChildItem -Path "${root}" -Recurse -Filter "go.mod" | ForEach-Object {
+    $modulePaths += $(Split-Path -Parent $_.FullName)
 }
 
 $batch = Get-Random -Max 999
 
-ForEach ($p in ${modules}) {
-    $mod = "$(Split-Path -Leaf $p)"
-    Start-Job -Name "${batch}-${mod}" -ScriptBlock {
+ForEach ($p in ${modulePaths}) {
+    $job = "$(Split-Path -Leaf $p)"
+    $mod = (${p}).Replace("${root}","${repo}").Replace('\','/')
+
+    Start-Job -Name "${batch}-${job}" -ScriptBlock {
         Push-Location "${using:p}"
-
-        foreach ($p in ${using:modules}) {
-            $mod = "$(Split-Path -Leaf $p)"
-            if ("$mod" -eq "${using:mod}") {
-                continue
-            }
-
-            go get "${using:repo}/${mod}@${using:commit}"
+        $deps = $(go mod edit -json | jq -r '.Require[] | select(.Path | startswith(\"github.com/canonical/ubuntu\")) | .Path')
+        foreach ($mod in ${deps}) {
+            go get "${mod}@${using:commit}"
         }
 			
         go mod tidy
@@ -29,7 +28,8 @@ ForEach ($p in ${modules}) {
     }
 }
 
-ForEach ($job in $modules) {
+ForEach ($p in ${modulePaths}) {
+    $job = "$(Split-Path -Leaf $p)"
     Wait-Job -Name "${batch}-${job}"
     Receive-Job -Name "${batch}-${job}"
 }
