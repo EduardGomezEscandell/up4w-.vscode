@@ -54,8 +54,8 @@
             "id": "appx-build-type",
             "type": "pickString",
             "options": [
-                "prodution",
-                "end_to_end"
+                "production",
+                "end_to_end_tests"
             ]
         }
     ]
