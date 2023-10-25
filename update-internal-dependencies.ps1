@@ -3,20 +3,20 @@ $root = "C:\Users\edu19\Work\ubuntu-pro-for-windows"
 $repo = "github.com/canonical/ubuntu-pro-for-windows"
 
 $modules = @()
-Get-ChildItem -Path "${root}" | ForEach-Object {
-    if ( Test-Path -Path "${root}\$_\go.mod" ) {
-        $modules += "$_"
-    }
+Get-ChildItem -Path "${root}" -Recurse -Filter go.mod | ForEach-Object {
+    $modules += $(Split-Path -Parent $_)
 }
 
 $batch = Get-Random -Max 999
 
-ForEach ($job in ${modules}) {
-    Start-Job -Name "${batch}-${job}" -ScriptBlock {
-        Push-Location "${using:root}\${using:job}"
+ForEach ($p in ${modules}) {
+    $mod = "$(Split-Path -Leaf $p)"
+    Start-Job -Name "${batch}-${mod}" -ScriptBlock {
+        Push-Location "${using:p}"
 
-        foreach ($mod in ${using:modules}) {
-            if ("$mod" -eq "${using:job}") {
+        foreach ($p in ${using:modules}) {
+            $mod = "$(Split-Path -Leaf $p)"
+            if ("$mod" -eq "${using:mod}") {
                 continue
             }
 
