@@ -24,12 +24,12 @@
             "label": "Build Appx",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}",
             },
             "group": {
                 "kind": "build"
             },
-            "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-appx.ps1 -Mode ${input:appx-build-type}"
+            "command": "powershell.exe -File ${workspaceFolder}\\.vscode\\build-appx-wrapper.ps1 -Mode ${input:appx-build-type} -InstallPath '${workspaceFolder}\\_build\\windows-agent'",
         },
         {
             "label": "Build Deb",
@@ -41,7 +41,7 @@
                 "kind": "build"
             },
             "windows": {
-                "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-deb.ps1"
+                "command": "powershell.exe -File ${workspaceFolder}\\tools\\build\\build-deb.ps1 -OutputDir '${workspaceFolder}\\_build\\wsl-pro-service'"
             },
             "linux": {
                 "command": "bash ${workspaceFolder}/tools/build/build-deb.sh"
