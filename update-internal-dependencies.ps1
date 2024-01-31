@@ -17,7 +17,7 @@ ForEach ($p in ${modulePaths}) {
 
     Start-Job -Name "${batch}-${job}" -ScriptBlock {
         Push-Location "${using:p}"
-        $deps = $(go mod edit -json | jq -r '.Require[] | select(.Path | startswith(\"github.com/canonical/ubuntu\")) | .Path')
+        $deps = $(go mod edit -json | jq -r '.Require[] | select(.Path | startswith("github.com/canonical/ubuntu")) | .Path')
         foreach ($mod in ${deps}) {
             go get "${mod}@${using:commit}"
         }
