@@ -18,7 +18,7 @@ if ( "$?" -ne "True" ) {
 }
 
 $artifacts = (
-    Get-ChildItem ".\msix\UbuntuProForWindows\AppPackages\UbuntuProForWindows_*"    `
+    Get-ChildItem ".\msix\UbuntuProForWSL\AppPackages\UbuntuProForWSL_*"    `
     | Sort-Object LastWriteTime                                                     `
     | Select-Object -last 1                                                         `
 )
@@ -30,4 +30,4 @@ Write-Output "Copying ${certficate} into ${InstallPath}"
 Copy-Item -Path "${certficate}" -Destination "${InstallPath}\certificate.cert"
 
 Write-Output "Copying ${package} into ${InstallPath}"
-Copy-Item -Path "${package}" -Destination "${InstallPath}\UbuntuProForWindows_${mode}.msixbundle"
+Copy-Item -Path "${package}" -Destination "${InstallPath}\UbuntuProForWSL_${mode}.msixbundle"
