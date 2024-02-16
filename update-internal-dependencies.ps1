@@ -1,6 +1,6 @@
 $commit = "5b9d0e7eff848477bfa51647cbee727cc80ca48f"
-$root = "C:\Users\edu19\Work\ubuntu-pro-for-windows"
-$repo = "github.com/canonical/ubuntu-pro-for-windows"
+$root = "C:\Users\edu19\Work\ubuntu-pro-for-wsl"
+$repo = "github.com/canonical/ubuntu-pro-for-wsl"
 
 Set-Location $root
 
